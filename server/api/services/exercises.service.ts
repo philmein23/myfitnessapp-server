@@ -8,6 +8,8 @@ export enum Muscles {
   Triceps,
 }
 
+type ExerciseId = number;
+
 let id = 0;
 export interface Exercise {
   id: number;
@@ -36,7 +38,7 @@ export class ExercisesService {
 
   getExerciseById() {}
 
-  async addNewExercise(name: string, description: string) {
+  async addNewExercise(name: string, description: string): Promise<ExerciseId> {
     L.info(`Adding new exerise: ${name}`);
     const result = await db.one(
       'INSERT INTO exercises (name, description) VALUES ($1, $2) RETURNING id',
