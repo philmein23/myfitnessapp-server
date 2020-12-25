@@ -72,6 +72,22 @@ paths:
         200:
           description: Returns all exercise programs
           content: {}
+  /exercises:
+    post:
+      tags:
+        - Exercises
+      description: Add a new exercise
+      requestBody:
+        description: an exercise
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseBody'
+        required: true
+      responses:
+        200:
+          description: Returns the newly created exercise
+          content: {}
 
 components:
   schemas:
@@ -84,3 +100,15 @@ components:
         name:
           type: string
           example: no_stress
+    ExerciseBody:
+      title: exercise
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: pull-ups
+        description:
+          type: string
+          example: back exercise that targets lats

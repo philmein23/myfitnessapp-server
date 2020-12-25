@@ -1,5 +1,6 @@
 import L from '../../common/logger';
 import { Exercise, Muscles } from './exercises.service';
+import db from '../db';
 
 type SetsReps = {
   sets: number;
@@ -49,7 +50,7 @@ export class ProgramsService {
 
   getProgramById(id: number) {}
 
-  addNewProgram() {}
+  addNewProgram(programName: string) {}
 
   removeProgram() {}
 }

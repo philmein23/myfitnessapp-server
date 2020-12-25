@@ -1,4 +1,5 @@
 import L from '../../common/logger';
+import db from '../db';
 
 export enum Muscles {
   Pectorals,
@@ -35,7 +36,15 @@ export class ExercisesService {
 
   getExerciseById() {}
 
-  addNewExercise() {}
+  async addNewExercise(name: string, description: string) {
+    L.info(`Adding new exerise: ${name}`);
+    const result = await db.one(
+      'INSERT INTO exercises (name, description) VALUES ($1, $2) RETURNING id',
+      [name, description]
+    );
+
+    return result;
+  }
 
   removeExerciseById() {}
 }
