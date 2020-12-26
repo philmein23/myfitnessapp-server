@@ -29,6 +29,14 @@ paths:
           description: Returns all exercise programs
           content: {}
   /exercises:
+    get:
+      tags:
+        - Exercises
+      description: Get all exercises
+      responses:
+        200:
+          description: Return all exercises
+          content: {}
     post:
       tags:
         - Exercises
@@ -46,6 +54,23 @@ paths:
           content: {}
   /exercises/{id}:
     get:
+      tags:
+        - Exercises
+      parameters:
+        - name: id
+          in: path
+          description: The id of the example to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Return the example with the specified id
+          content: {}
+        404:
+          description: Example not found
+          content: {}
+    delete:
       tags:
         - Exercises
       parameters:

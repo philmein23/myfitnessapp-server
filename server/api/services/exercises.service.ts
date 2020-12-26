@@ -1,5 +1,6 @@
 import L from '../../common/logger';
 import db from '../db';
+import { IResult } from 'pg-promise/typescript/pg-subset';
 
 export enum Muscles {
   Pectorals,
@@ -34,9 +35,15 @@ const exercises: Exercise[] = [
 ];
 
 export class ExercisesService {
-  getAll() {}
+  async getAll(): Promise<Exercise[]> {
+    L.info('Fetching all exercises...');
+    return db.any('SELECT * from exercises');
+  }
 
-  getExerciseById() {}
+  async getExerciseById(exerciseId: number): Promise<Exercise> {
+    L.info(`Fetching exercise with id: ${exerciseId}`);
+    return db.oneOrNone('SELECT * FROM exercises WHERE id = $1', [exerciseId]);
+  }
 
   async addNewExercise(name: string, description: string): Promise<ExerciseId> {
     L.info(`Adding new exerise: ${name}`);
@@ -48,7 +55,14 @@ export class ExercisesService {
     return result;
   }
 
-  removeExerciseById() {}
+  removeExerciseById(exerciseId: number) {
+    L.info(`Removing exercise with id: ${exerciseId}`);
+    return db.result(
+      'DELETE FROM exercises WHERE id = $1',
+      [exerciseId],
+      (r: IResult) => r.rowCount
+    );
+  }
 }
 
 export default new ExercisesService();
