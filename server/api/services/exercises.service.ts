@@ -55,7 +55,7 @@ export class ExercisesService {
     return result;
   }
 
-  removeExerciseById(exerciseId: number) {
+  async removeExerciseById(exerciseId: number): Promise<number> {
     L.info(`Removing exercise with id: ${exerciseId}`);
     return db.result(
       'DELETE FROM exercises WHERE id = $1',
